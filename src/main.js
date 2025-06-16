@@ -1,24 +1,34 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import "./style.css";
+import { renderSchema } from "./renderer.js";
+import { exampleSchema } from "./schema.js";
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+const schemaInput = document.getElementById("schema-input");
+const form = document.getElementById("schema-form");
+const clearBtn = document.getElementById("clear-btn");
+const loadExampleBtn = document.getElementById("load-example");
+const output = document.getElementById("output");
 
-setupCounter(document.querySelector('#counter'))
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  output.innerHTML = "";
+
+  try {
+    const parsed = JSON.parse(schemaInput.value);
+    const renderedFields = renderSchema(parsed);
+    output.appendChild(renderedFields);
+  } catch {
+    const err = document.createElement("div");
+    err.textContent = "Invalid JSON schema.";
+    err.className = "text-red-400";
+    output.appendChild(err);
+  }
+});
+
+clearBtn.addEventListener("click", () => {
+  schemaInput.value = "";
+  output.innerHTML = "";
+});
+
+loadExampleBtn.addEventListener("click", () => {
+  schemaInput.value = JSON.stringify(exampleSchema, null, 2);
+});

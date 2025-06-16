@@ -1,13 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>HTML Forms Generator</title>
   </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+  <body class="bg-stone-900 min-h-screen font-sans text-gray-200">
+    <div class="mx-auto p-6 max-w-3xl" id="app">
+      <h1 class="mb-4 font-bold text-white text-3xl">
+        HTML Forms Generator Vanilla JS
+      </h1>
+      <p class="mb-6 text-stone-400">
+        Paste a JSON schema and click Generate to render the form.
+      </p>
+
+      <button
+        id="load-example"
+        class="bg-stone-700 hover:bg-stone-800 mb-4 px-4 py-2 rounded-xl text-white cursor-pointer"
+      >
+        Click to use example JSON Schema
+      </button>
+
+      <form id="schema-form">
+        <textarea
+          id="schema-input"
+          rows="10"
+          class="bg-black p-3 border border-stone-700 rounded-l-xl outline-none w-full text-white resize-y"
+          placeholder="Paste JSON schema here..."
+        ></textarea>
+        <div class="flex justify-between">
+          <button
+            type="submit"
+            class="bg-sky-600 hover:bg-sky-700 mt-4 px-5 py-2 rounded-xl text-white cursor-pointer"
+          >
+            Generate
+          </button>
+          <button
+            type="button"
+            id="clear-btn"
+            class="bg-rose-700 hover:bg-rose-900 mt-4 px-5 py-2 rounded-xl text-white cursor-pointer"
+          >
+            Clear
+          </button>
+        </div>
+      </form>
+
+      <div class="mt-10" id="output"></div>
+    </div>
+
+    <script type="module" src="src/main.js"></script>
   </body>
 </html>
